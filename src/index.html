@@ -6,10 +6,38 @@
     <title>ゲーミフィケーションアプリ</title>
     <link rel="stylesheet" href="css/styles.css">
 </head>
-<body>
-    <header>
-        <h1>ゲーミフィケーションアプリ</h1>
-        <p>目標達成を楽しむためのアプリケーション</p>
+    <body>
+        <header>
+            <h1>ゲーミフィケーションアプリ</h1>
+            <p>目標達成を楽しむためのアプリケーション</p>
+            <a href="/src/templates/create.html">目標を追加しよう！</a>
+        </header>
     </header>
-</body>
+
+
+    <ul id="goal-list">目標一覧</ul>
+
+    <script>
+        // db.jsonを読み込んでHTMLに出力する処理
+        fetch('db.json')
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('JSONファイルの読み込みに失敗しました');
+                }
+                return response.json();
+            })
+            .then(data => {
+                const goalList = document.getElementById('goal-list');
+                for (const goal of data.goals) {
+                    const listItem = document.createElement('li');
+                    listItem.textContent = `${goal.id}: ${goal.title}`;
+                    goalList.appendChild(listItem);
+                }
+            })
+            .catch(error => {
+                console.error('エラー:', error);
+            });
+    </script>
+
+    </body>
 </html>
