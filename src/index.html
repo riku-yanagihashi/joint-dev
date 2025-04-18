@@ -10,6 +10,27 @@
     <header>
         <h1>ゲーミフィケーションアプリ</h1>
         <p>目標達成を楽しむためのアプリケーション</p>
+        <a href="/src/templates/create.html">目標を追加しよう！</a>
     </header>
+
+    <ul id="goal-list">目標一覧</ul>
+
+    <script>
+        // ローカルストレージからデータを読み込んでHTMLに出力する処理
+        function loadGoals() {
+            const goals = JSON.parse(localStorage.getItem('goals')) || []; // ローカルストレージからデータを取得
+            const goalList = document.getElementById('goal-list');
+            goalList.innerHTML = ''; // 一旦リストをクリア
+
+            for (const goal of goals) {
+                const listItem = document.createElement('li');
+                listItem.textContent = `${goal.title}`;
+                goalList.appendChild(listItem);
+            }
+        }
+
+        // ページ読み込み時に目標を表示
+        document.addEventListener('DOMContentLoaded', loadGoals);
+    </script>
 </body>
 </html>
